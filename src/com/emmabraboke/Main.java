@@ -1,10 +1,13 @@
 package com.emmabraboke;
 
 import com.emmabraboke.Booking.Booking;
+import com.emmabraboke.Booking.BookingDataAccessService;
 import com.emmabraboke.Booking.BookingService;
 import com.emmabraboke.Car.Car;
+import com.emmabraboke.Car.CarDataAccessService;
 import com.emmabraboke.Car.CarService;
 import com.emmabraboke.User.User;
+import com.emmabraboke.User.UserDataAccessService;
 import com.emmabraboke.User.UserService;
 
 import javax.naming.NameNotFoundException;
@@ -15,21 +18,19 @@ public class Main{
     public static void main(String[] ags) {
         System.out.println("Welcome to Booking");
 
-        User user = new User("Emmanuel", "Braboke");
-        User user1 = new User("Joshua", "Braboke");
-        UserService userSrv = new UserService();
+        // Data Access services
+        UserDataAccessService userDataSrv = new UserDataAccessService();
+        CarDataAccessService carDataSrv = new CarDataAccessService();
+        BookingDataAccessService bookingDataSrv = new BookingDataAccessService(carDataSrv);
 
-        userSrv.createUser(user);
-        userSrv.createUser(user1);
+        // Initialize Data
+        carDataSrv.cars("src/com/emmabraboke/cars.csv");
+        userDataSrv.users("src/com/emmabraboke/users.csv");
 
-        Car car = new Car("toyota",  50.0, false);
-        Car car1 = new Car("bmw", 70.0, false);
-        CarService carSrv = new CarService();
-        carSrv.createCar(car);
-        carSrv.createCar(car1);
-
-        BookingService bookSrv = new BookingService();
-
+        // Services
+        UserService userSrv = new UserService(userDataSrv);
+        CarService carSrv = new CarService(carDataSrv);
+        BookingService bookSrv = new BookingService(bookingDataSrv, carDataSrv);
 
         int quit = 1;
         while (quit != 0) {
@@ -47,22 +48,22 @@ public class Main{
 
             switch (option) {
                 case "1":
-                    bookCar(carSrv, bookSrv);
+                    bookSrv.bookCar(carSrv, userSrv, new Booking());
                     break;
                 case "2":
-                    viewUserBookedCar(bookSrv);
+                    bookSrv.viewUserBookedCar(bookSrv);
                     break;
                 case "3":
-                    viewAllBookings(bookSrv);
+                    bookSrv.viewAllBookings(bookSrv);
                     break;
                 case "4":
-                    viewAvailableCars(carSrv);
+                    carSrv.viewAvailableCars(carSrv);
                     break;
                 case "5":
-                    viewAvailableElectricCars(carSrv);
+                    carSrv.viewAvailableElectricCars(carSrv);
                     break;
                 case "6":
-                    viewAllUsers(userSrv);
+                    userSrv.viewAllUsers(userSrv);
                     break;
                 case "7":
                     System.out.println("Exited Successfully");
@@ -74,44 +75,6 @@ public class Main{
 
         }
     }
-
-    public static void bookCar(CarService carSrv, BookingService bookSrv){
-        Scanner bookingValue = new Scanner(System.in);
-        carSrv.printCars();
-        System.out.println("Enter userId");
-        String userId = bookingValue.nextLine();
-        System.out.println("Enter carId");
-        String carId = bookingValue.nextLine();
-
-        Booking book = new  Booking(carId, userId);
-
-        Booking booking1 = bookSrv.createBooking(book);
-        System.out.println(booking1);
-    }
-
-    public static void viewUserBookedCar(BookingService bookSrv){
-        Scanner userValue = new Scanner(System.in);
-        System.out.println("Enter userId");
-        String userId = userValue.nextLine();
-        bookSrv.getUserBookings(userId);
-    }
-
-    public static void viewAllBookings(BookingService bookSrv){
-        bookSrv.printBooking();
-    }
-
-    public static void viewAvailableCars(CarService carSrv){
-        carSrv.printCars();
-    }
-
-    public static  void viewAvailableElectricCars(CarService carSrv){
-        carSrv.printElectricCars();
-    }
-
-    public static  void viewAllUsers(UserService userSrv){
-        userSrv.printUsers();
-    }
-
 }
 
 

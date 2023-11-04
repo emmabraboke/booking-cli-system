@@ -3,22 +3,19 @@ package com.emmabraboke.User;
 import java.util.UUID;
 
 public class User {
-    private String id;
-    private String firstName;
-    private String lastName;
+    private final String id;
+    private final String firstName;
+    private final String lastName;
     private UserService userService;
 
-    public User(String firstName, String lastName) {
+    public User(String id, String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.id = id;
     }
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
 

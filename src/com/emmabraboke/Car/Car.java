@@ -1,27 +1,26 @@
 package com.emmabraboke.Car;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public class Car {
-    private  String id;
-    private String name;
+    private final String id;
+    private final String name;
     private Boolean isAvailable;
-    private Boolean isElectricCar;
-
-    private double rentalPrice;
+    private final Boolean isElectricCar;
+    private final double rentalPrice;
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
-    public Car(String name, double rentalPrice, Boolean isElectricCar) {
+    public Car(String id, String name, double rentalPrice, Boolean isElectricCar) {
         this.name = name;
         this.isElectricCar = isElectricCar;
         this.rentalPrice = rentalPrice;
+        this.id = id;
+        this.isAvailable = true;
     }
 
     @Override
