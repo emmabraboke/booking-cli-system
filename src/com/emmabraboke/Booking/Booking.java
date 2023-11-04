@@ -6,6 +6,17 @@ public class Booking {
 
     private String userId;
 
+    public Booking() {
+    }
+
+    public void setCarId(String carId) {
+        this.carId = carId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public String getCarId() {
         return carId;
     }

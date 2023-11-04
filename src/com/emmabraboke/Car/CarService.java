@@ -1,27 +1,29 @@
 package com.emmabraboke.Car;
 
-import java.util.Arrays;
-import java.util.UUID;
-
 public class CarService {
+    private final CarDataAccessService carDataAccessService;
+    public CarService(CarDataAccessService carDataAccessService) {
+        this.carDataAccessService = carDataAccessService;
+    }
+
     public void createCar(Car car) {
-       CarDAO.createCar(car);
+       carDataAccessService.createCar(car);
     }
 
     public Car[] getCars() {
-        return CarDAO.getCars();
+        return carDataAccessService.getCars();
     }
 
     public Car[] getAvailableCars() {
-      return CarDAO.getAvailableCars();
+      return carDataAccessService.getAvailableCars();
     }
 
     public Car[] getAvailableElectricCars() {
-     return CarDAO.getAvailableElectricCars();
+     return carDataAccessService.getAvailableElectricCars();
     }
 
     public  Car getCar(String id) {
-        return  CarDAO.getCar(id);
+        return  carDataAccessService.getCar(id);
     }
 
     public void printCars(){
@@ -31,10 +33,17 @@ public class CarService {
         }
     }
 
+    public void viewAvailableCars(CarService carSrv){
+        carSrv.printCars();
+    }
     public void printElectricCars(){
         Car[] cars = getAvailableElectricCars();
         for(Car car: cars){
             System.out.println(car);
         }
+    }
+
+    public void viewAvailableElectricCars(CarService carSrv){
+        carSrv.printElectricCars();
     }
 }
