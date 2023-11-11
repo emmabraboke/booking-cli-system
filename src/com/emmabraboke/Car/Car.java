@@ -1,8 +1,5 @@
 package com.emmabraboke.Car;
 
-import java.math.BigDecimal;
-import java.util.UUID;
-
 public class Car {
     private final String id;
     private final String name;

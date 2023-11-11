@@ -2,49 +2,44 @@ package com.emmabraboke.Car;
 
 import com.emmabraboke.User.User;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class CarDataAccessService implements CarDAO{
-    private static Car[] cars = new Car[0];
+    private static final List<Car> cars = new ArrayList<>();
     public CarDataAccessService() {
     }
 
     public void createCar(Car car) {
-        cars = append(car, cars);
+        cars.add(car);
     }
 
-    public Car[] getCars() {
+    public List<Car> getCars() {
         return cars;
     }
 
-    public Car[] getAvailableCars() {
-        Car[] result = new Car[0];
-        for(Car car : cars){
-            if(car != null && car.getAvailable()){
-                result = append(car, result);
-            }
-        }
-
-        if(result.length == 0) {
+    public  List<Car> getAvailableCars() {
+        List<Car> result = cars.stream()
+                .filter(Car::getAvailable)
+                .collect(Collectors.toList());
+        if(result.isEmpty()) {
             System.out.println("no car available");
         }
 
         return result;
     }
 
-    public Car[] getAvailableElectricCars() {
-        Car[] result = new Car[0];
-        for(Car car : cars){
-            if(car !=null && car.getAvailable() && car.getElectricCar()){
-                result = append(car, result);
-            }
-        }
+    public  List<Car> getAvailableElectricCars() {
+        List<Car> result = cars.stream()
+                .filter(car -> car.getAvailable() && car.getElectricCar())
+                .collect(Collectors.toList());
 
-        if(result.length == 0) {
+        if(result.isEmpty()) {
             System.out.println("no electric car available");
         }
 
@@ -69,19 +64,17 @@ public class CarDataAccessService implements CarDAO{
     }
 
     public void cars(String path){
-        File file = new File(path);
-        try(FileReader fileData = new FileReader(file);) {
-            Scanner readFile = new Scanner(fileData);
 
-            while (readFile.hasNext()){
-                String line =  readFile.nextLine();
+        try(BufferedReader fileData = new BufferedReader( new FileReader(path))) {
+
+            String line;
+            while ((line = fileData.readLine()) != null){
 
                 String[] item = line.split(",");
 
-
                 Car car = new Car(item[0],item[1], Double.parseDouble(item[2]), Boolean.parseBoolean(item[3]));
 
-                cars = append(car, cars);
+                cars.add(car);
             }
 
 

@@ -1,5 +1,7 @@
 package com.emmabraboke.User;
 
+import java.util.List;
+
 public class UserService {
 
     private final UserDataAccessService userDataAccessService;
@@ -12,14 +14,9 @@ public class UserService {
        return userDataAccessService.createUser(user);
     }
 
-    public  User[] getUsers(){
-        User[] users =  userDataAccessService.getUsers();
+    public List<User> getUsers(){
+        return userDataAccessService.getUsers();
 
-        if(users.length == 0){
-            System.out.println("no users");
-        }
-
-        return users;
     }
 
     public User getUser(String id){
@@ -32,7 +29,7 @@ public class UserService {
     }
 
     public void printUsers(){
-        User[] users = this.getUsers();
+        List<User> users = this.getUsers();
         for(User user: users){
             System.out.println(user);
         }

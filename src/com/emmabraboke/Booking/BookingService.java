@@ -6,6 +6,7 @@ import com.emmabraboke.Car.CarService;
 import com.emmabraboke.User.User;
 import com.emmabraboke.User.UserService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class BookingService {
@@ -27,10 +28,10 @@ public class BookingService {
         return bookingDataAccessService.createBooking(booking);
     }
 
-    public Booking[] getBookings(){
-        Booking[] booking = bookingDataAccessService.getBookings();
+    public List<Booking> getBookings(){
+        List<Booking> booking = bookingDataAccessService.getBookings();
 
-        if(booking.length == 0){
+        if(booking.isEmpty()){
             System.out.println("no bookings");
         }
 
@@ -72,13 +73,13 @@ public class BookingService {
 
 
 
-    public Booking[] getUserBookings(String userID){
-        return bookingDataAccessService.getUserBookings(userID);
+    public void getUserBookings(String userID){
+        bookingDataAccessService.getUserBookings(userID);
     }
 
 
     public void printBooking(){
-        Booking[] bookings = getBookings();
+        List<Booking> bookings = getBookings();
 
         for(Booking booking: bookings){
             System.out.println(booking);
