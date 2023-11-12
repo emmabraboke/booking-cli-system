@@ -1,17 +1,17 @@
 package com.emmabraboke.Car;
 
+import java.util.List;
+
 public interface CarDAO {
     void createCar(Car car);
-    Car[] getAvailableCars();
-    Car[] getCars();
+    List<Car> getAvailableCars();
+    List<Car> getCars();
 
-    Car[] getAvailableElectricCars();
+    List<Car> getAvailableElectricCars();
 
     void updateCarStatus(String id, Boolean status);
 
     Car getCar(String id);
-
-    Car[] append(Car car, Car[] cars);
 
     void cars(String path);
 }

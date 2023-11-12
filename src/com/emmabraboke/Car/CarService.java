@@ -1,5 +1,7 @@
 package com.emmabraboke.Car;
 
+import java.util.List;
+
 public class CarService {
     private final CarDataAccessService carDataAccessService;
     public CarService(CarDataAccessService carDataAccessService) {
@@ -10,15 +12,15 @@ public class CarService {
        carDataAccessService.createCar(car);
     }
 
-    public Car[] getCars() {
+    public List<Car> getCars() {
         return carDataAccessService.getCars();
     }
 
-    public Car[] getAvailableCars() {
+    public  List<Car> getAvailableCars() {
       return carDataAccessService.getAvailableCars();
     }
 
-    public Car[] getAvailableElectricCars() {
+    public  List<Car> getAvailableElectricCars() {
      return carDataAccessService.getAvailableElectricCars();
     }
 
@@ -27,7 +29,7 @@ public class CarService {
     }
 
     public void printCars(){
-        Car[] cars = getAvailableCars();
+        List<Car> cars = getAvailableCars();
         for(Car car: cars){
                 System.out.println(car);
         }
@@ -37,7 +39,7 @@ public class CarService {
         carSrv.printCars();
     }
     public void printElectricCars(){
-        Car[] cars = getAvailableElectricCars();
+        List<Car> cars = getAvailableElectricCars();
         for(Car car: cars){
             System.out.println(car);
         }

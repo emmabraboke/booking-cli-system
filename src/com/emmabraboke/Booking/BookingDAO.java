@@ -1,9 +1,10 @@
 package com.emmabraboke.Booking;
 
+import java.util.List;
+
 public interface BookingDAO {
     Booking createBooking(Booking booking);
-    Booking[] getUserBookings(String userID);
-    Booking[] getBookings();
-    Booking[] append(Booking book, Booking[] bookings);
+    void getUserBookings(String userID);
+    List<Booking> getBookings();
 }
 

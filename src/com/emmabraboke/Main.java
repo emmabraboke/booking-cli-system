@@ -3,15 +3,10 @@ package com.emmabraboke;
 import com.emmabraboke.Booking.Booking;
 import com.emmabraboke.Booking.BookingDataAccessService;
 import com.emmabraboke.Booking.BookingService;
-import com.emmabraboke.Car.Car;
 import com.emmabraboke.Car.CarDataAccessService;
 import com.emmabraboke.Car.CarService;
-import com.emmabraboke.User.User;
 import com.emmabraboke.User.UserDataAccessService;
 import com.emmabraboke.User.UserService;
-
-import javax.naming.NameNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main{

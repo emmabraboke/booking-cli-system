@@ -2,10 +2,12 @@ package com.emmabraboke.Booking;
 
 import com.emmabraboke.Car.CarDataAccessService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class BookingDataAccessService implements BookingDAO {
-    public static Booking[] bookings = new Booking[0];
+    public static List<Booking> bookings = new ArrayList<>();
     private final CarDataAccessService carDataAccessService;
 
     public BookingDataAccessService(CarDataAccessService carDataAccessService) {
@@ -17,30 +19,29 @@ public class BookingDataAccessService implements BookingDAO {
 
         booking.setId(id);
          carDataAccessService.updateCarStatus(booking.getCarId(), false);
-         bookings = append(booking, bookings);
+        bookings.add(booking);
 
         return booking;
 
     }
-    public Booking[] getBookings(){
+    public List<Booking> getBookings(){
         return bookings;
     }
 
-    public Booking[] getUserBookings(String userID){
-        Booking[] userBookings = new Booking[0];
+    public void getUserBookings(String userID){
+        List<Booking> userBookings = new ArrayList<>();
 
         for(Booking book: bookings){
             if(book != null && book.getUserId().equals(userID)){
                 System.out.println(book);
-                userBookings = append(book, userBookings);
+                userBookings.add(book);
             }
         }
 
-        if(userBookings.length == 0){
+        if(userBookings.isEmpty()){
             System.out.println("user doesn't have any booking");
         }
 
-        return userBookings;
     }
 
 
