@@ -7,7 +7,8 @@ import java.io.FileReader;
 import java.util.*;
 
 public class UserDataAccessService implements UserDAO {
-    private static List<User> users = new ArrayList<>();
+    private static final List<User> users = new ArrayList<>();
+
 
     public UserDataAccessService() {
     }
@@ -35,9 +36,12 @@ public class UserDataAccessService implements UserDAO {
         return null;
     }
 
-    public void users(String path){
-        File file = new File(path);
-        try(BufferedReader fileData = new BufferedReader(new FileReader(file))) {
+    public void users(String file){
+        try(BufferedReader fileData = new BufferedReader(
+                new FileReader(Objects.requireNonNull(getClass()
+                        .getClassLoader()
+                        .getResource(file))
+                        .getPath()))) {
 
             String line;
             while ((line = fileData.readLine()) != null){

@@ -6,6 +6,4 @@ public interface UserDAO {
     User createUser(User user);
     List<User> getUsers();
     User getUser(String id);
-
-    void users(String path);
 }
