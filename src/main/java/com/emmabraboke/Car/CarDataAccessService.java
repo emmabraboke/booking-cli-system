@@ -3,10 +3,12 @@ package com.emmabraboke.Car;
 import com.emmabraboke.User.User;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -63,9 +65,13 @@ public class CarDataAccessService implements CarDAO{
         return null;
     }
 
-    public void cars(String path){
+    public void cars(String file){
 
-        try(BufferedReader fileData = new BufferedReader( new FileReader(path))) {
+        try(BufferedReader fileData = new BufferedReader(
+                new FileReader(Objects.requireNonNull(getClass()
+                                .getClassLoader()
+                                .getResource(file))
+                                .getPath()))) {
 
             String line;
             while ((line = fileData.readLine()) != null){

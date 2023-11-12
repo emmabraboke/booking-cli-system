@@ -24,8 +24,8 @@ public class UserService {
 
     }
 
-    public void viewAllUsers(UserService userSrv){
-        userSrv.printUsers();
+    public void viewAllUsers(){
+        printUsers();
     }
 
     public void printUsers(){
